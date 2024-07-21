@@ -3,7 +3,17 @@ import reactLogo from '@/assets/react.svg'
 import viteLogo from '/vite.svg'
 import '@/App.css'
 
-function App() {
+type Props = {
+    services: {
+        version: string;
+        name: string;
+        url: string;
+        iconUrl: string;
+    }[]
+}
+
+function App(props: Props) {
+  const {services} = props
   const [count, setCount] = useState(0)
 
   return (
@@ -15,8 +25,14 @@ function App() {
         <a href="https://react.dev" target="_blank">
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
+        {services.map(v => (
+          <a href={v.url} target="_blank">
+            <img src={v.iconUrl} className="logo crop" alt={`${v.name} logo`} />
+          </a>
+        ))}
       </div>
-      <h1>Vite + React</h1>
+      <h1>{["Vite", "React", ...services.map(v => v.name)].join(" + ")}</h1>
+      {services.map(v => <p>{v.name}: ${v.version}</p>)}
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}

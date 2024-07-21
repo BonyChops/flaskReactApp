@@ -2,6 +2,7 @@ from flask import Flask, send_from_directory
 from flask_vite import Vite
 from flask_inertia import Inertia
 from flask_inertia import render_inertia
+import flask
 
 SECRET_KEY = "secret!" # 適宜変えてください
 INERTIA_TEMPLATE = "base.html"
@@ -15,7 +16,16 @@ inertia.init_app(app)
 
 @app.route('/')
 def hello_world():  # put application's code here
-    data = {}
+    data = {
+        "services": [
+            {
+                "version": flask.__version__,
+                "name": "Flask",
+                "url": "https://flask.palletsprojects.com/",
+                "iconUrl": "https://flask.palletsprojects.com/en/3.0.x/_images/flask-horizontal.png"
+            }
+        ]
+    }
     return render_inertia(
         component_name="Index",
         props=data,
