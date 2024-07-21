@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <title>flaskReactApp</title>
+  {% if config['DEBUG'] %}
+  <script type="module">
+    import RefreshRuntime from 'http://localhost:3000/@react-refresh'
+    RefreshRuntime.injectIntoGlobalHook(window)
+    window.$RefreshReg$ = () => {}
+    window.$RefreshSig$ = () => (type) => type
+    window.__vite_plugin_react_preamble_installed__ = true
+  </script>
+  {% endif %}
+  {{ vite_tags() }}
+  <script lang="javascript">
+    {{ inertia.include_router() }}
+  </script>
+</head>
+<body>
+    <div id="app" data-page='{{ page | tojson }}'></div>
+</body>
+</html>
